@@ -1,0 +1,2 @@
+[requires]
+AvatarCore/1.13.1

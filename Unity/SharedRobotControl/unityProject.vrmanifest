@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.ca_sharedrobot_prototype.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\Takayoshi Hagiwara\\Desktop\\Hagiwara\\2021\\Research\\Prototype\\Alpha2\\CA_SharedRobot_Prototype\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "CA_SharedRobot_Prototype [Testing]"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+xArmIPAddress1,192.168.1.217
+xArmIPAddress2,192.168.1.233
+motiveServerIPAddress,133.68.35.155
+motiveLocalIPAddress,133.68.35.155
+wirelessIPAddress,192.168.11.5
+localIPAddress,127.0.0.1
+bendingSensorPortParticipant1,9000
+bendingSensorPortParticipant2,9010
+bendingSensorCom1,COM7
+bendingSensorCom2,COM3
+weightSliderPort,22225
+weightSliderListPos,0.5,0.5
+weightSliderListRot,0.5,0.5
+bendingSensorNumber,2
+listIndexNum,5,9

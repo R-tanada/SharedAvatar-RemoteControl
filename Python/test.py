@@ -1,0 +1,1 @@
+from sdk.AvatarCore.bin.CorePython.CoreAPI import CoreAPI

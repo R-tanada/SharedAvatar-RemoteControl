@@ -1,0 +1,18 @@
+{
+    "participantNum":2,
+    "recordedParticipantMotionCount":0,
+    "motionDataInputMode":0,
+    "motiveserverIpAddress":"192.168.1.240",
+    "motivelocalIpAddress":"192.186",
+    "gripperDataInputMode":"bendingsensor",
+    "recordedGripperValueCount":0,
+    "BendingSensor_ConnectionMethod":"wired",
+    "bendingSensorSerialCOMs":"COM5",
+    "bendingSensorSerialRate":7000,
+    "xArmIP":"192.168.1.240",
+    "localIP": "127.0.0.1",
+    "mocapserverAddress":"192.168.1.30",
+    "mocaplocalAddress":"192.168.1.30",
+    "bendingsenosrNum":2
+
+}
