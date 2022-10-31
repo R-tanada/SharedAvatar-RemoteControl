@@ -1,0 +1,57 @@
+{
+  "Name": "Services/Robot",
+  "Services": [
+    {
+      "Type": "VideoCapture",
+      "Settings": {
+        "Alias": "Capture/video/front",
+        "DefaultRunning": "true",
+        "Source": {
+          "Type": "camera"
+        },
+        "Sink": {
+          "Type": "shmem",
+          "Resource": "robot-camera",
+          "Size": "6220800"
+        }
+      }
+    },
+    {
+      "Type": "AudioCapture",
+      "Settings": {
+        "Alias": "Capture/audio",
+        "DefaultRunning": "true",
+        "Source": {
+          "Type": "microphone",
+          "Device": "",
+          "SampleRate": "48000",
+          "Channels": "2"
+        },
+        "Sink": {
+          "Type": "shmem",
+          "Resource": "robot-audio",
+          "Size": "48000"
+        }
+      }
+    },
+    {
+      "Type": "AudioPlayback",
+      "Settings": {
+        "Alias": "Play/audio/user",
+        "DefaultRunning": "true",
+        "MaxSpeed": "2",
+        "Source": {
+          "Type": "shmem",
+          "Resource": "user-audio",
+          "Device": "0",
+          "SampleRate": "48000",
+          "Channels": "2"
+        },
+        "Sink": {
+          "Type": "speaker",
+          "Device": ""
+        }
+      }
+    }
+  ]
+}

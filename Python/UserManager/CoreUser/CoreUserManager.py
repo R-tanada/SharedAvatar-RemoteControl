@@ -6,8 +6,9 @@ import numpy as np
 # import logs
 # from logs import logger
 
-# sys.path.append('../')
 from Camera.VideoWindowManager import VideoWidgetManager
+
+sys.path.append(os.pardir)
 from sdk.AvatarCore.bin.CorePython.CoreAPI import CoreAPI
 from sdk.AvatarCore.bin.CorePython.CoreResourceManager import \
     CoreResourceManager

@@ -1,0 +1,37 @@
+{
+    "Name": "SimpleServices",
+    "Services": [
+        {
+            "Type": "VideoCapture",
+            "Settings": {
+                "Alias": "Capture/video/front",
+                "DefaultRunning": "true",
+                "Source": {
+                    "Type": "camera"
+                },
+                "Sink": {
+                    "Type": "shmem",
+                    "Resource": "local-image",
+                    "Size": "6220800"
+                }
+            }
+        },
+        {
+            "Type": "VideoFormat",
+            "Settings": {
+                "Alias": "Capture/video/front/RGB",
+                "DefaultRunning": "true",
+                "Source": {
+                    "Type": "shmem",
+                    "Resource": "local-image"
+                },
+                "Sink": {
+                    "Type": "shmem",
+                    "Format": "RGB",
+                    "Resource": "local-image-RGB",
+                    "size": "6220800"
+                }
+            }
+        }
+    ]
+}

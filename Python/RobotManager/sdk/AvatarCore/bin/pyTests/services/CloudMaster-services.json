@@ -1,0 +1,151 @@
+{
+    "Name": "Services/Master",
+    "Services": [
+      {
+        "Type": "CloudProxy",
+        "Settings": {
+          "Alias": "Master/cloud",
+          "DefaultRunning": "true",
+          "CreateSession": "true"
+        }
+      },
+      {
+        "Type": "RTPReceiver",
+        "Settings": {
+          "Alias": "Master/receiver/video",
+          "DefaultRunning": "false",
+          "PeerIP": "127.0.0.1",
+          "Secured": "false",
+          "RTCP": "false",
+          "FEC": "true",
+          "Video": [
+            {
+              "ID": "11",
+              "Name": "RemoteImage",
+              "RTPPort": "10500",
+              "Type": "x264",
+              "Sink": {
+                "Type": "shmem",
+                "Resource": "remote-image",
+                "Size": "6220800"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Type": "RTPReceiver",
+        "Settings": {
+          "Alias": "Master/receiver/audio",
+          "DefaultRunning": "false",
+          "PeerIP": "127.0.0.1",
+          "Audio": [
+            {
+              "ID": "21",
+              "Name": "UserMic",
+              "RTPPort": "10501",
+              "Encoder": {
+                "Encoder": "opus",
+                "SampleRate": "44100"
+              },
+              "Sink": {
+                "Type": "shmem",
+                "SampleRate": "0",
+                "Channels": "0",
+                "Resource": "remote-audio",
+                "Size": "22100"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Type": "RTPReceiver",
+        "Settings": {
+          "Alias": "Master/receiver/data",
+          "DefaultRunning": "false",
+          "PeerIP": "127.0.0.1",
+          "Data": [
+            {
+              "ID": "31",
+              "Name": "Data",
+              "RTPPort": "10502",
+              "Sink": {
+                "Type": "shmem",
+                "Resource": "remote-data",
+                "Size": "4096"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Type": "RTPSender",
+        "Settings": {
+          "Alias": "Master/sender/video",
+          "DefaultRunning": "false",
+          "PeerIP": "127.0.0.1",
+          "RTCP": "false",
+          "Video": [
+            {
+              "ID": "11",
+              "Name": "MainCamera",
+              "RTPPort": "10503",
+              "Source": {
+                "Type": "shmem",
+                "Resource": "local-image"
+              },
+              "Encoder": {
+                "Encoder": "x264",
+                "Bitrate": "1000",
+                "Quality": "8"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Type": "RTPSender",
+        "Settings": {
+          "Alias": "Master/sender/audio",
+          "DefaultRunning": "false",
+          "PeerIP": "127.0.0.1",
+          "Audio": [
+            {
+              "ID": "21",
+              "Name": "MainMic",
+              "RTPPort": "10504",
+              "Source": {
+                "Type": "shmem",
+                "Resource": "local-audio"
+              },
+              "Encoder": {
+                "Encoder": "opus"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Type": "RTPSender",
+        "Settings": {
+          "Alias": "Master/sender/data",
+          "DefaultRunning": "false",
+          "PeerIP": "127.0.0.1",
+          "Data": [
+            {
+              "ID": "31",
+              "Name": "Data",
+              "Reliable": "false",
+              "RTPPort": "10505",
+              "Source": {
+                "Type": "shmem",
+                "Resource": "local-data"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+  
