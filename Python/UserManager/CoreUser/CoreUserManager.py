@@ -143,5 +143,7 @@ class CoreUserManager:
         # logger.info('Stop the core_api')
         print('Stop the core_api')
 
+    
+
     def start_window(self):
         self.videoWindowManager.StartWindow()
