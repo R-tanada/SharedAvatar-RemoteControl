@@ -28,7 +28,6 @@ class CoreUserManager:
         self.videoWindowManager = VideoWidgetManager()
 
         self.__init_core()
-        self.videoWindowManager.startWindow()
 
     def __init_core(self):
         self.core_api = CoreAPI()
@@ -143,3 +142,6 @@ class CoreUserManager:
         self.core_finished = True
         # logger.info('Stop the core_api')
         print('Stop the core_api')
+
+    def start_window(self):
+        self.videoWindowManager.StartWindow()

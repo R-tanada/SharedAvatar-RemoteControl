@@ -1,6 +1,8 @@
+from asyncio import Task
 import json
 # from mimetypes import init
 import time
+import threading
 
 # from matplotlib import test
 
@@ -8,12 +10,52 @@ import time
 from CoreUser.CoreUserManager import CoreUserManager
 from ParticipantMotion.TestMotionManager import TestManager
 
-loopCount = 0
-setting_file = open('../setting.json', mode = 'r')
-setValue = json.load(setting_file)
+# setting_file = open('../../setting.json', mode = 'r')
+# setValue = json.load(setting_file)
 
-coreManager = CoreUserManager(Avatar_Peer_ID=11111111)
+coreManager = CoreUserManager(User_Peer_ID = 214387, Avatar_Peer_ID = 199580)
+
+def send_MotionData():
+    taskStartTime = time.perf_counter()
+    loopTime = 0
+    loopCount = 0
+    targetCycleTime = 0.01
+
+    try:
+        while True:
+            loopStartTime = time.perf_counter() - taskStartTime
+
+            
+            # position = participantMotionManager.LocalPosition(loopCount)
+            # rotation = participantMotionManager.LocalRotation(loopCount)
+            position, rotation = testManager.create_Sinwave(loopTime)
+            # print('hello')
+            message = {'position':position['participant1'], 'rotation':rotation['participant1']}
+            coreManager.core_write_data('motion-data', message)
+
+            # print('Position, Rotaton => {}, {}'.format(position, rotation))
+
+            loopCount += 1
+
+            # ---------- fix framerate ---------- #
+            loopTime = time.perf_counter() - taskStartTime
+            CycleTime = loopTime - loopStartTime
+            if CycleTime >= targetCycleTime:
+                pass
+            else:
+                time.sleep(targetCycleTime - CycleTime)
+
+
+    except KeyboardInterrupt:
+        print('finished')
+
 testManager = TestManager()
+motion_thred = threading.Thread(target = send_MotionData, daemon = True)
+motion_thred.start()
+
+coreManager.start_window()
+
+
 # participantMotionManager = ParticipantMotionManager(defaultParticipantNum = setValue['participantNum'],
 #                                                     recordedParticipantNum = setValue['recordedParticipantMotionCount'],
 #                                                     motionInputSystem = setValue['motionDataInputMode'],
@@ -27,31 +69,4 @@ testManager = TestManager()
 #                                                     bendingSensorUdpPort = setValue['bendingSensorPorts'],
 #                                                     bendingSensorSerialCOMs = setValue['bendingSensorComs'])
 
-start_time = time.perf_counter()
-loopTime = 0
-target_framerate = 120
 
-try:
-    while True:
-
-        
-        # position = participantMotionManager.LocalPosition(loopCount)
-        # rotation = participantMotionManager.LocalRotation(loopCount)
-        position, rotation = testManager.create_Sinwave(loopTime)
-        message = {'position':position['participant1'], 'rotation':rotation['participant1']}
-        coreManager.core_write_data('motion-data', message)
-
-        print('Position, Rotaton => {}, {}'.format(position, rotation))
-
-        loopCount += 1
-
-        # ---------- fix framerate ---------- #
-        loopTime = time.perf_counter() - start_time
-        if 1/loopTime >= target_framerate:
-            pass
-        else:
-            time.sleep(1/target_framerate - loopTime)
-
-
-except KeyboardInterrupt:
-    print('finished')

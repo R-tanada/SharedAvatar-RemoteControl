@@ -4,6 +4,7 @@
 # Summary:  Robot arm motion control manager
 # -----------------------------------------------------------------------
 
+import sys
 import json
 from datetime import datetime
 from enum import Flag
@@ -12,9 +13,8 @@ import datetime
 import threading
 from matplotlib.pyplot import flag
 import numpy as np
-from sdk.xarm.wrapper import XArmAPI
-from ctypes import windll
-from LoadCell.LoadCellManager import LoadCellManager
+# from ctypes import windll
+# from LoadCell.LoadCellManager import LoadCellManager
 from CoreRobot.CoreRobotManager import CoreRobotManager
 
 # ----- Custom class ----- #
@@ -24,6 +24,9 @@ from Recorder.DataRecordManager import DataRecordManager
 from LoadCell.LoadCellManager import LoadCellManager
 from RobotArmController.WeightSliderManager import WeightSliderManager
 # from Graph.Graph_2D import Graph_2D
+
+sys.path.append('../')
+from sdk.xarm.wrapper import XArmAPI
 
 # ---------- Settings: Shared method ---------- #
 sharedMethod = 'integration'
@@ -46,7 +49,7 @@ class RobotControlManagerClass:
         self.motivelocalIpAddress    = setValue['mocaplocalAddress']
         self.bendingSensorPorts      = setValue['bendingSensorSerialRate']
         self.bendingSensorComs       = setValue['bendingSensorSerialCOMs']
-        self.bendinSensorNumber      = setValue['bendingsensorNum']
+        self.bendinSensorNumber      = setValue['bendingsensorNum'] 
 
     def SendDataToRobot(self, participantNum, executionTime: int = 9999, isFixedFrameRate: bool = False, frameRate: int = 90, isChangeOSTimer: bool = False, isExportData: bool = True, isEnablexArm: bool = True):
         """
@@ -101,20 +104,20 @@ class RobotControlManagerClass:
         # ----- Instantiating custom classes ----- #
         caBehaviour                         = CyberneticAvatarMotionBehaviour(defaultParticipantNum=participantNum)
         transform                           = xArmTransform()
-        coreRobotManager                    = CoreRobotManager(Avatar_Peer_ID = 111111, connect_PC_Num = 1)
-        dataRecordManager                   = DataRecordManager(participantNum=participantNum, otherRigidBodyNum=otherRigidBodyCount)
+        coreRobotManager                    = CoreRobotManager(Avatar_Peer_ID = 199580, connect_PC_Num = 1, participantNum = 1)
+        # dataRecordManager                   = DataRecordManager(participantNum=participantNum, otherRigidBodyNum=otherRigidBodyCount)
         # weightSliderManager                 = WeightSliderManager(WeightSlider_ConnectionMethod='wireless',ip=self.wirelessIpAddress,port=self.weightSliderPort)
         # Graph2DManager                      = Graph_2D(n=2)
 
         # ----- Initialize robot arm ----- #
         if isEnablexArm:
-            arm = XArmAPI(self.xArmIpAddress1)
+            arm = XArmAPI(self.xArmIpAddress)
             self.InitializeAll(arm, transform)
 
         # bendingFeedback = LoadCellManager(arm)
 
         # ----- Control flags ----- #
-        isMoving    = False
+        isMoving    = True
 
         # ----- Internal flags ----- #
         isPrintFrameRate    = False     # For debug
@@ -122,33 +125,33 @@ class RobotControlManagerClass:
 
         try:
             while True:
-                if time.perf_counter() - taskStartTime > executionTime:
-                    # ----- Exit processing after task time elapses ----- #
-                    isMoving    = False
+                # if time.perf_counter() - taskStartTime > executionTime:
+                #     # ----- Exit processing after task time elapses ----- #
+                #     isMoving    = False
 
-                    self.taskTime.append(time.perf_counter() - taskStartTime)
-                    self.PrintProcessInfo()
+                #     self.taskTime.append(time.perf_counter() - taskStartTime)
+                #     self.PrintProcessInfo()
 
-                    # ----- Export recorded data ----- #
-                    if isExportData:
-                        dataRecordManager.ExportSelf(dirPath='C:/Users/cmm13037/Documents/Nishimura',participant=self.participantname,conditions=self.condition)
+                #     # ----- Export recorded data ----- #
+                #     if isExportData:
+                #         dataRecordManager.ExportSelf(dirPath='C:/Users/cmm13037/Documents/Nishimura',participant=self.participantname,conditions=self.condition)
 
-                    # ----- Disconnect ----- #
-                    if isEnablexArm:
-                        arm.disconnect()
+                #     # ----- Disconnect ----- #
+                #     if isEnablexArm:
+                #         arm.disconnect()
 
-                    windll.winmm.timeEndPeriod(1)
+                #     windll.winmm.timeEndPeriod(1)
 
-                    print('----- Finish task -----')
-                    break
+                #     print('----- Finish task -----')
+                #     break
 
                 if isMoving:
                     # ---------- Start control process timer ---------- #
                     loopStartTime = time.perf_counter()
 
                     # ----- Get transform data----- #
-                    localPosition = coreRobotManager.data['Position']
-                    localRotation = coreRobotManager.data['Rotation']
+                    localPosition = coreRobotManager.data['position']
+                    localRotation = coreRobotManager.data['rotation']
 
                     # ----- For opposite condition ----- #
                     if directionOfParticipants == 'opposite':
@@ -157,7 +160,7 @@ class RobotControlManagerClass:
                             localRotation[oppositeParticipant] = caBehaviour.InversedRotation(localRotation[oppositeParticipant], axes=inversedAxes)
 
                     # ----- Calculate shared transform ----- #
-                    position,rotation = caBehaviour.GetSharedTransformWithCustomWeight(localPosition, localRotation,weightSliderList )
+                    position,rotation = caBehaviour.GetSharedTransform(localPosition, localRotation)
                     position = position * 1000
 
                     # ----- Set xArm transform ----- #
@@ -184,17 +187,17 @@ class RobotControlManagerClass:
                             # arm_2.set_servo_cartesian(transform_2.Transform(isLimit=False,isOnlyPosition=False))
 
                     # ----- Bending sensor ----- #
-                    dictBendingValue = coreRobotManager.data['grip_val']
+                    # dictBendingValue = coreRobotManager.data['grip_val']
 
                     # ----- Bending sensor for integration or one side ----- #
-                    if self.bendinSensorNumber == '1':
-                        gripperValue_1 = dictBendingValue['gripperValue1']
-                    elif self.bendinSensorNumber == '2':
-                        gripperValue_1 = (dictBendingValue['gripperValue1'] + dictBendingValue['gripperValue2'])/2
+                    # if self.bendinSensorNumber == '1':
+                    #     gripperValue_1 = dictBendingValue['gripperValue1']
+                    # elif self.bendinSensorNumber == '2':
+                    #     gripperValue_1 = (dictBendingValue['gripperValue1'] + dictBendingValue['gripperValue2'])/2
 
                     # ----- Gripper control ----- #
-                    if isEnablexArm:
-                        code, ret = arm.getset_tgpio_modbus_data(self.ConvertToModbusData(gripperValue_1))
+                    # if isEnablexArm:
+                    #     code, ret = arm.getset_tgpio_modbus_data(self.ConvertToModbusData(gripperValue_1))
 
                     # ----- Data recording ----- #
                     # relativePosition = CyberneticAvatarMotionBehaviour.GetRelativePosition_r(position=localPosition)
@@ -261,23 +264,23 @@ class RobotControlManagerClass:
                         # weightSliderList = [weightSliderList_0,weightSliderList_0]
 
                         # ----- weight slider list ----- #
-                        self.weightSliderListPos[0].remove('weightSliderListPos')
-                        self.weightSliderListRot[0].remove('weightSliderListRot')
-                        weightSliderListPosstr = self.weightSliderListPos[0]
-                        weightSliderListRotstr = self.weightSliderListRot[0]
-                        weightSliderListPosfloat = list(map(float,weightSliderListPosstr))
-                        weightSliderListRotfloat = list(map(float,weightSliderListRotstr))
-                        weightSliderList = [weightSliderListPosfloat, weightSliderListRotfloat]
+                        # self.weightSliderListPos[0].remove('weightSliderListPos')
+                        # self.weightSliderListRot[0].remove('weightSliderListRot')
+                        # weightSliderListPosstr = self.weightSliderListPos[0]
+                        # weightSliderListRotstr = self.weightSliderListRot[0]
+                        # weightSliderListPosfloat = list(map(float,weightSliderListPosstr))
+                        # weightSliderListRotfloat = list(map(float,weightSliderListRotstr))
+                        # weightSliderList = [weightSliderListPosfloat, weightSliderListRotfloat]
 
                         # self.weightSliderList = [[0,1],[0,1]]
                         # self.weightSliderList = [[0.5,0.5],[0.5,0.5]]
 
                         # print(weightSliderList)
 
-                        position, rotation = caBehaviour.GetSharedTransformWithCustomWeight(coreRobotManager.data['position'], coreRobotManager.data['rotation'],weightSliderList )
-                        beforeX_1, beforeY_1, beforeZ_1 = position[2], position[0], position[1]
+                        position, rotation = caBehaviour.GetSharedTransform(coreRobotManager.data['position'], coreRobotManager.data['rotation'])
+                        beforeX, beforeY, beforeZ = position[2], position[0], position[1]
 
-                        participantMotionManager.SetInitialBendingValue()
+                        # participantMotionManager.SetInitialBendingValue()
 
                         isMoving    = True
                         taskStartTime = time.perf_counter()
@@ -288,8 +291,8 @@ class RobotControlManagerClass:
             self.taskTime.append(time.perf_counter() - taskStartTime)
             self.PrintProcessInfo()
 
-            if isExportData:
-                dataRecordManager.ExportSelf(dirPath='C:/Users/kimih/Documents/Nishimura',participant=self.participantname,conditions=self.condition,number=self.number)
+            # if isExportData:
+            #     dataRecordManager.ExportSelf(dirPath='C:/Users/kimih/Documents/Nishimura',participant=self.participantname,conditions=self.condition,number=self.number)
 
             # ----- Disconnect ----- #
             if isEnablexArm:

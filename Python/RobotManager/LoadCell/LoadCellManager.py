@@ -12,7 +12,6 @@ import serial
 # ----- Custom class ----- #
 # from Audio.AudioManager import AudioManager
 from RobotArmController.xArmIO import xArmIO
-from UDP.UDPManager import UDPManager
 
 
 # path = "C:/Users/kimih/Desktop/tanada/robot_system_data/loadcell_data_3grip/"

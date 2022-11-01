@@ -5,6 +5,9 @@ from PySide6 import QtCore, QtGui, QtWidgets
 
 class VideoWidgetManager:
     def __init__(self) -> None:
+        pass
+
+    def StartWindow(self):
         self.app = QtWidgets.QApplication(sys.argv) 
         self.mainWin = MainWin()
         self.mainWin.show()
@@ -62,6 +65,11 @@ class MainWin(QtWidgets.QMainWindow):
 
     # def keyPressEvent(self, event: QtGui.QKeyEvent) -> None:
     #     print(QtGui.QKeySequence(event.key()).toString())
+
+    # def closeEvent(self, event):
+    #     self.core.stop_core()
+    #     event.accept()
+    #     sys.exit()
         
 
 if __name__ == '__main__':
