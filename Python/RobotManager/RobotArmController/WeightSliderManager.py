@@ -4,7 +4,7 @@
 # Summary:  Weight data from slider
 # -----------------------------------------------------------------------
 
-from UDP.UDPManager import UDPManager
+# from UDP.UDPManager import UDPManager
 import threading
 import serial
 
