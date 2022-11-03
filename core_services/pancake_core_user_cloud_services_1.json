@@ -1,0 +1,206 @@
+{
+  "Name": "Services/UserCloud",
+  "Services": [
+    {
+      "Type": "CloudProxy",
+      "Settings": {
+        "Alias": "User/cloud",
+        "CreateSession": "false",
+        "DefaultRunning": "true"
+      }
+    },
+    {
+      "Type": "RTPSender",
+      "Settings": {
+        "Alias": "User/sender/data/user/user1",
+        "DefaultRunning": "false",
+        "PeerIP": "127.0.0.1",
+        "Data": [
+          {
+            "ID": "11",
+            "Name": "Data",
+            "Reliable": "false",
+            "RTPPort": "10501",
+            "Source": {
+              "Type": "shmem",
+              "Resource": "user-1-data"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Type": "RTPSender",
+      "Settings": {
+        "Alias": "User/sender/data/user/user2",
+        "DefaultRunning": "false",
+        "PeerIP": "127.0.0.1",
+        "Data": [
+          {
+            "ID": "12",
+            "Name": "Data",
+            "Dummy": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Type": "RTPReceiver",
+      "Settings": {
+        "Alias": "User/receiver/data/feedback/user1",
+        "DefaultRunning": "false",
+        "PeerIP": "127.0.0.1",
+        "Data": [
+          {
+            "ID": "13",
+            "Name": "Data",
+            "Dummy": "true"
+          }
+        ]
+      }
+    },
+    {
+      "Type": "RTPReceiver",
+      "Settings": {
+        "Alias": "User/receiver/data/feedback/user2",
+        "DefaultRunning": "false",
+        "PeerIP": "127.0.0.1",
+        "Data": [
+          {
+            "ID": "14",
+            "Name": "Data",
+            "RTPPort": "10504",
+            "Sink": {
+              "Type": "shmem",
+              "Resource": "feedback-to-1",
+              "Size": "4096"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Type": "RTPReceiver",
+      "Settings": {
+        "Alias": "User/receiver/video/micro",
+        "DefaultRunning": "false",
+        "PeerIP": "127.0.0.1",
+        "Secured": "false",
+        "RTCP": "false",
+        "FEC": "true",
+        "Video": [
+          {
+            "ID": "21",
+            "Name": "MicroCamera",
+            "RTPPort": "10601",
+            "Type": "x264",
+            "Sink": {
+              "Type": "shmem",
+              "Resource": "micro-camera",
+              "Size": "6220800"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Type": "RTPReceiver",
+      "Settings": {
+        "Alias": "User/receiver/video/fruit",
+        "DefaultRunning": "false",
+        "PeerIP": "127.0.0.1",
+        "Secured": "false",
+        "RTCP": "false",
+        "FEC": "true",
+        "Video": [
+          {
+            "ID": "22",
+            "Name": "FruitCamera",
+            "RTPPort": "10602",
+            "Type": "x264",
+            "Sink": {
+              "Type": "shmem",
+              "Resource": "fruit-camera",
+              "Size": "6220800"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Type": "RTPReceiver",
+      "Settings": {
+        "Alias": "User/receiver/video/cake",
+        "DefaultRunning": "false",
+        "PeerIP": "127.0.0.1",
+        "Secured": "false",
+        "RTCP": "false",
+        "FEC": "true",
+        "Video": [
+          {
+            "ID": "23",
+            "Name": "CakeCamera",
+            "RTPPort": "10603",
+            "Type": "x264",
+            "Sink": {
+              "Type": "shmem",
+              "Resource": "cake-camera",
+              "Size": "6220800"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Type": "VideoFormat",
+      "Settings": {
+        "Alias": "User/video/robot/micro/RGB",
+        "DefaultRunning": "true",
+        "Source": {
+          "Type": "shmem",
+          "Resource": "micro-camera"
+        },
+        "Sink": {
+          "Type": "shmem",
+          "Format": "RGB",
+          "Resource": "micro-camera-RGB",
+          "size": "6220800"
+        }
+      }
+    },
+    {
+      "Type": "VideoFormat",
+      "Settings": {
+        "Alias": "User/video/robot/fruit/RGB",
+        "DefaultRunning": "true",
+        "Source": {
+          "Type": "shmem",
+          "Resource": "fruit-camera"
+        },
+        "Sink": {
+          "Type": "shmem",
+          "Format": "RGB",
+          "Resource": "fruit-camera-RGB",
+          "size": "6220800"
+        }
+      }
+    },
+    {
+      "Type": "VideoFormat",
+      "Settings": {
+        "Alias": "User/video/robot/cake/RGB",
+        "DefaultRunning": "true",
+        "Source": {
+          "Type": "shmem",
+          "Resource": "cake-camera"
+        },
+        "Sink": {
+          "Type": "shmem",
+          "Format": "RGB",
+          "Resource": "cake-camera-RGB",
+          "size": "6220800"
+        }
+      }
+    }
+  ]
+}

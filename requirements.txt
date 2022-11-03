@@ -1,0 +1,8 @@
+conan
+numpy
+opencv-python
+pandas
+pyaudio
+pynput
+pyserial
+PySide6

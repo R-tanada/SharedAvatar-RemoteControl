@@ -1,0 +1,8 @@
+03:53:33.287 [INFO    ] cake_gui_v2:53 >> Start the core_api
+03:53:33.348 [INFO    ] cake_gui_v2:57 >> Start the default services
+03:53:33.350 [INFO    ] cake_gui_v2:65 >> Start the services
+03:53:35.352 [INFO    ] cake_gui_v2:75 >> Connect to session : 214913
+03:54:31.745 [INFO    ] cake_gui_v2:78 >> Peer disconnected : {
+"code": "disconnect",
+"id": 214913
+}
