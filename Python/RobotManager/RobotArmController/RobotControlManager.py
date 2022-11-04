@@ -49,7 +49,7 @@ class RobotControlManagerClass:
         self.motivelocalIpAddress    = setValue['mocaplocalAddress']
         self.bendingSensorPorts      = setValue['bendingSensorSerialRate']
         self.bendingSensorComs       = setValue['bendingSensorSerialCOMs']
-        self.bendinSensorNumber      = setValue['bendingsensorNum'] 
+        self.bendinSensorNumber      = setValue['bendingSensorNum'] 
 
     def SendDataToRobot(self, participantNum, executionTime: int = 9999, isFixedFrameRate: bool = False, frameRate: int = 90, isChangeOSTimer: bool = False, isExportData: bool = True, isEnablexArm: bool = True):
         """
@@ -148,42 +148,43 @@ class RobotControlManagerClass:
                 if isMoving:
                     # ---------- Start control process timer ---------- #
                     loopStartTime = time.perf_counter()
+                    print(coreRobotManager.data)
 
                     # ----- Get transform data----- #
-                    localPosition = coreRobotManager.data['position']
-                    localRotation = coreRobotManager.data['rotation']
+                    # localPosition = coreRobotManager.data['position']
+                    # localRotation = coreRobotManager.data['rotation']
 
-                    # ----- For opposite condition ----- #
-                    if directionOfParticipants == 'opposite':
-                        for oppositeParticipant in oppositeParticipants:
-                            # yz: Mirror mode, xz: Natural mode
-                            localRotation[oppositeParticipant] = caBehaviour.InversedRotation(localRotation[oppositeParticipant], axes=inversedAxes)
+                    # # ----- For opposite condition ----- #
+                    # if directionOfParticipants == 'opposite':
+                    #     for oppositeParticipant in oppositeParticipants:
+                    #         # yz: Mirror mode, xz: Natural mode
+                    #         localRotation[oppositeParticipant] = caBehaviour.InversedRotation(localRotation[oppositeParticipant], axes=inversedAxes)
 
-                    # ----- Calculate shared transform ----- #
-                    position,rotation = caBehaviour.GetSharedTransform(localPosition, localRotation)
-                    position = position * 1000
+                    # # ----- Calculate shared transform ----- #
+                    # position,rotation = caBehaviour.GetSharedTransform(localPosition, localRotation)
+                    # position = position * 1000
 
-                    # ----- Set xArm transform ----- #
-                    transform.x, transform.y, transform.z           = position[2], position[0], position[1]
-                    transform.roll, transform.pitch, transform.yaw  = rotation[2], rotation[0], rotation[1]
-
-
-                    # ----- Safety check (Position) ---- #
-                    diffX = transform.x - beforeX
-                    diffY = transform.y - beforeY
-                    diffZ = transform.z - beforeZ
-                    beforeX, beforeY, beforeZ = transform.x, transform.y, transform.z
+                    # # ----- Set xArm transform ----- #
+                    # transform.x, transform.y, transform.z           = position[2], position[0], position[1]
+                    # transform.roll, transform.pitch, transform.yaw  = rotation[2], rotation[0], rotation[1]
 
 
-                    if diffX == 0 and  diffY == 0 and diffZ == 0 and  isFixedFrameRate:
-                        print('[WARNING] >> Rigid body is not captured by the mocap camera.')
-                    elif abs(diffX) > movingDifferenceLimit or abs(diffY) > movingDifferenceLimit or abs(diffZ) > movingDifferenceLimit :
-                        isMoving = False
-                        print('[ERROR] >> A rapid movement has occurred. Please enter "r" to reset xArm, or "q" to quit')
-                    else:
-                        if isEnablexArm:
-                            # ----- Send to xArm ----- #
-                            arm.set_servo_cartesian(transform.Transform(isLimit=False,isOnlyPosition=False))
+                    # # ----- Safety check (Position) ---- #
+                    # diffX = transform.x - beforeX
+                    # diffY = transform.y - beforeY
+                    # diffZ = transform.z - beforeZ
+                    # beforeX, beforeY, beforeZ = transform.x, transform.y, transform.z
+
+
+                    # if diffX == 0 and  diffY == 0 and diffZ == 0 and  isFixedFrameRate:
+                    #     print('[WARNING] >> Rigid body is not captured by the mocap camera.')
+                    # elif abs(diffX) > movingDifferenceLimit or abs(diffY) > movingDifferenceLimit or abs(diffZ) > movingDifferenceLimit :
+                    #     isMoving = False
+                    #     print('[ERROR] >> A rapid movement has occurred. Please enter "r" to reset xArm, or "q" to quit')
+                    # else:
+                    #     if isEnablexArm:
+                    #         # ----- Send to xArm ----- #
+                    #         arm.set_servo_cartesian(transform.Transform(isLimit=False,isOnlyPosition=False))
                             # arm_2.set_servo_cartesian(transform_2.Transform(isLimit=False,isOnlyPosition=False))
 
                     # ----- Bending sensor ----- #
@@ -230,8 +231,8 @@ class RobotControlManagerClass:
                             print("Average FPS: ", sum(listFrameRate)/len(listFrameRate))
 
                     # ----- (Optional) Check data ----- #
-                    if isPrintData:
-                        print('xArm transform > ' + str(np.round(transform.Transform(), 1)) + '   Bending sensor > ' + str(dictBendingValue))
+                    # if isPrintData:
+                    #     print('xArm transform > ' + str(np.round(transform.Transform(), 1)) + '   Bending sensor > ' + str(dictBendingValue))
 
                     self.loopCount += 1
 
@@ -255,8 +256,11 @@ class RobotControlManagerClass:
 
                     # ----- Start streaming ----- #
                     elif keycode == 's':
+                        originalPos = {'participant1':[300, 0, 230]}
                         caBehaviour.SetOriginPosition(coreRobotManager.data['position'])
                         caBehaviour.SetInversedMatrix(coreRobotManager.data['rotation'])
+                        # caBehaviour.SetOriginPosition(coreRobotManager.data['position'])
+                        # caBehaviour.SetInversedMatrix(coreRobotManager.data['rotation'])
 
                         # # ----- weight slider list (For participantNum)  ----- #
                         # weightSliderList = []
