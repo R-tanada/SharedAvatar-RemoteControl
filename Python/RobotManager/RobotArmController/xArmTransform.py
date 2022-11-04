@@ -34,8 +34,8 @@ class xArmTransform:
         self.n = 4
         self.fp = 10
         self.fs = 180
-        self.filter_robot = MotionFilter()
-        self.filter_robot.InitLowPassFilterWithOrder(self.fs,self.fp,self.n)
+        # self.filter_robot = MotionFilter()
+        # self.filter_robot.InitLowPassFilterWithOrder(self.fs,self.fp,self.n)
 
         self.beforefilt = [[0, 0, 0, 0, 0, 0]] * self.n
         self.afterfilt = [[0, 0, 0, 0, 0, 0]] * self.n
@@ -195,7 +195,7 @@ class xArmTransform:
         """
 
         self.beforefilt.append([self.x, self.y, self.z, self.roll, self.pitch, self.yaw])
-        self.posfilt = self.filter_robot.lowpass2(self.beforefilt, self.afterfilt)
+        # self.posfilt = self.filter_robot.lowpass2(self.beforefilt, self.afterfilt)
         self.afterfilt.append(self.posfilt)
         del self.beforefilt[0]
         del self.afterfilt[0]

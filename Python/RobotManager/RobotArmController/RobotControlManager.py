@@ -49,7 +49,7 @@ class RobotControlManagerClass:
         self.motivelocalIpAddress    = setValue['mocaplocalAddress']
         self.bendingSensorPorts      = setValue['bendingSensorSerialRate']
         self.bendingSensorComs       = setValue['bendingSensorSerialCOMs']
-        self.bendinSensorNumber      = setValue['bendingSensorNum'] 
+        self.bendinSensorNumber      = setValue['bendingsenosrNum'] 
 
     def SendDataToRobot(self, participantNum, executionTime: int = 9999, isFixedFrameRate: bool = False, frameRate: int = 90, isChangeOSTimer: bool = False, isExportData: bool = True, isEnablexArm: bool = True):
         """
