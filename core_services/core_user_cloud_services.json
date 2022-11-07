@@ -76,7 +76,7 @@
     {
       "Type": "VideoFormat",
       "Settings": {
-        "Alias": "User/video/robot/micro/RGB",
+        "Alias": "User/video/robot/robot/RGB",
         "DefaultRunning": "true",
         "Source": {
           "Type": "shmem",
@@ -85,7 +85,7 @@
         "Sink": {
           "Type": "shmem",
           "Format": "RGB",
-          "Resource": "robot-camera-RGB",
+          "Resource": "robot-camera",
           "size": "6220800"
         }
       }
