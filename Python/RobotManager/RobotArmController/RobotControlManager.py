@@ -40,7 +40,7 @@ movingDifferenceLimit = 1000
 
 class RobotControlManagerClass:
     def __init__(self) -> None:
-        setting_file = open('/Users/yuzu/Documents/GitHub/ms-sharedavatar/Python/setting.json', mode = 'r')
+        setting_file = open('../Python/setting.json', mode = 'r')
         setValue = json.load(setting_file)
         self.xArmIpAddress           = setValue['xArmIP']
         self.localIpAddress          = setValue['localIP']
