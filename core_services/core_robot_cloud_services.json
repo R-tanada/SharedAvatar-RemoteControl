@@ -53,7 +53,7 @@
     {
       "Type": "RTPSender",
       "Settings": {
-        "Alias": "User/sender/video/micro",
+        "Alias": "User/sender/video/robot",
         "DefaultRunning": "true",
         "PeerIP": "127.0.0.1",
         "RTCP": "false",

@@ -52,7 +52,7 @@
     {
       "Type": "RTPReceiver",
       "Settings": {
-        "Alias": "User/receiver/video/micro",
+        "Alias": "User/receiver/video/robot",
         "DefaultRunning": "false",
         "PeerIP": "127.0.0.1",
         "Secured": "false",
