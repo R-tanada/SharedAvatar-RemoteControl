@@ -76,7 +76,7 @@ class CoreUserManager:
 
         core_resources = CoreResourceManager(self.__on_resource_frame_arrived)
 
-        core_resources.subscribe_video('robot-camera')
+        core_resources.subscribe_video('robot-camera-RGB')
 
         core_resources.subscribe_data('feedback-to-user', 'motion-data')
         core_resources.subscribe_data('feedback-to-user', 'id')

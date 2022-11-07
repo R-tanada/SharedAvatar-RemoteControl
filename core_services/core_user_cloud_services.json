@@ -85,7 +85,7 @@
         "Sink": {
           "Type": "shmem",
           "Format": "RGB",
-          "Resource": "robot-camera",
+          "Resource": "robot-camera-RGB",
           "size": "6220800"
         }
       }
