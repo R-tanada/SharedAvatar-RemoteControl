@@ -1,0 +1,4 @@
+02:55:45.364 [INFO    ] CoreRobotManager:35 >> Start the core_api
+02:55:45.442 [INFO    ] CoreRobotManager:40 >> Start the default services
+02:55:45.444 [INFO    ] CoreRobotManager:49 >> Start the services
+02:55:45.444 [INFO    ] CoreRobotManager:113 >> Start the core_resources

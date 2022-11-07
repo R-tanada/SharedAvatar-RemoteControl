@@ -23,28 +23,32 @@ def send_MotionData():
 
     try:
         while True:
-            loopStartTime = time.perf_counter() - taskStartTime
+            if CoreUserManager.core_start:
+                loopStartTime = time.perf_counter() - taskStartTime
 
+                # ---------- transform ---------- #
+                # position = participantMotionManager.LocalPosition(loopCount)
+                # rotation = participantMotionManager.LocalRotation(loopCount)
+
+                # ---------- test ---------- #
+                position, rotation = testManager.create_Sinwave(loopTime)
+                message = {'position':position['participant1'], 'rotation':rotation['participant1']}
+                coreManager.core_write_data('motion-data', message)
+
+                # print('Position, Rotaton => {}, {}'.format(position, rotation))
+
+                loopCount += 1
+
+                # ---------- fix framerate ---------- #
+                loopTime = time.perf_counter() - taskStartTime
+                CycleTime = loopTime - loopStartTime
+                if CycleTime >= targetCycleTime:
+                    pass
+                else:
+                    time.sleep(targetCycleTime - CycleTime)
             
-            # position = participantMotionManager.LocalPosition(loopCount)
-            # rotation = participantMotionManager.LocalRotation(loopCount)
-            position, rotation = testManager.create_Sinwave(loopTime)
-            # print('hello')
-            message = {'position':position['participant1'], 'rotation':rotation['participant1']}
-            coreManager.core_write_data('motion-data', message)
-
-            # print('Position, Rotaton => {}, {}'.format(position, rotation))
-
-            loopCount += 1
-
-            # ---------- fix framerate ---------- #
-            loopTime = time.perf_counter() - taskStartTime
-            CycleTime = loopTime - loopStartTime
-            if CycleTime >= targetCycleTime:
-                pass
             else:
-                time.sleep(targetCycleTime - CycleTime)
-
+                pass
 
     except KeyboardInterrupt:
         print('finished')

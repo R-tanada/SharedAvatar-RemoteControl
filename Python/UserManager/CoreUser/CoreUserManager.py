@@ -22,6 +22,7 @@ class CoreUserManager:
         self.UserPeerID = User_Peer_ID
 
         self.new_frame = False
+        self.core_start = False
         self.frame_data = None
         self.resource_name = ''
         self.resource_mutex = threading.Lock()
@@ -98,6 +99,7 @@ class CoreUserManager:
             if self.user_ID is None:
                 if self.UserPeerID == data['PeerID']:
                     self.user_ID = data['UserID']
+                    self.core_start = True
 
         if 'feedback' in resource:
             if channel == 'robot-motion':

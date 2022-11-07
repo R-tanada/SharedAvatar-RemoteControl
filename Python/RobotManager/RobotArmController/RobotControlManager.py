@@ -14,7 +14,6 @@ import threading
 from matplotlib.pyplot import flag
 import numpy as np
 # from ctypes import windll
-# from LoadCell.LoadCellManager import LoadCellManager
 from CoreRobot.CoreRobotManager import CoreRobotManager
 
 # ----- Custom class ----- #
@@ -41,7 +40,7 @@ movingDifferenceLimit = 1000
 
 class RobotControlManagerClass:
     def __init__(self) -> None:
-        setting_file = open('../setting.json', mode = 'r')
+        setting_file = open('/Users/yuzu/Documents/GitHub/ms-sharedavatar/Python/setting.json', mode = 'r')
         setValue = json.load(setting_file)
         self.xArmIpAddress           = setValue['xArmIP']
         self.localIpAddress          = setValue['localIP']
@@ -104,7 +103,7 @@ class RobotControlManagerClass:
         # ----- Instantiating custom classes ----- #
         caBehaviour                         = CyberneticAvatarMotionBehaviour(defaultParticipantNum=participantNum)
         transform                           = xArmTransform()
-        coreRobotManager                    = CoreRobotManager(Avatar_Peer_ID = 199580, connect_PC_Num = 1, participantNum = 1)
+        coreRobotManager                    = CoreRobotManager(Avatar_Peer_ID = 199580)
         # dataRecordManager                   = DataRecordManager(participantNum=participantNum, otherRigidBodyNum=otherRigidBodyCount)
         # weightSliderManager                 = WeightSliderManager(WeightSlider_ConnectionMethod='wireless',ip=self.wirelessIpAddress,port=self.weightSliderPort)
         # Graph2DManager                      = Graph_2D(n=2)
@@ -117,198 +116,198 @@ class RobotControlManagerClass:
         # bendingFeedback = LoadCellManager(arm)
 
         # ----- Control flags ----- #
-        isMoving    = True
+        isMoving    = False
 
         # ----- Internal flags ----- #
         isPrintFrameRate    = False     # For debug
         isPrintData         = False     # For debug
 
-        try:
-            while True:
-                # if time.perf_counter() - taskStartTime > executionTime:
-                #     # ----- Exit processing after task time elapses ----- #
-                #     isMoving    = False
+        if coreRobotManager.core_start:
+            try:
+                while True:
+                    # if time.perf_counter() - taskStartTime > executionTime:
+                    #     # ----- Exit processing after task time elapses ----- #
+                    #     isMoving    = False
 
-                #     self.taskTime.append(time.perf_counter() - taskStartTime)
-                #     self.PrintProcessInfo()
+                    #     self.taskTime.append(time.perf_counter() - taskStartTime)
+                    #     self.PrintProcessInfo()
 
-                #     # ----- Export recorded data ----- #
-                #     if isExportData:
-                #         dataRecordManager.ExportSelf(dirPath='C:/Users/cmm13037/Documents/Nishimura',participant=self.participantname,conditions=self.condition)
+                    #     # ----- Export recorded data ----- #
+                    #     if isExportData:
+                    #         dataRecordManager.ExportSelf(dirPath='C:/Users/cmm13037/Documents/Nishimura',participant=self.participantname,conditions=self.condition)
 
-                #     # ----- Disconnect ----- #
-                #     if isEnablexArm:
-                #         arm.disconnect()
-
-                #     windll.winmm.timeEndPeriod(1)
-
-                #     print('----- Finish task -----')
-                #     break
-
-                if isMoving:
-                    # ---------- Start control process timer ---------- #
-                    loopStartTime = time.perf_counter()
-                    print(coreRobotManager.data)
-
-                    # ----- Get transform data----- #
-                    # localPosition = coreRobotManager.data['position']
-                    # localRotation = coreRobotManager.data['rotation']
-
-                    # # ----- For opposite condition ----- #
-                    # if directionOfParticipants == 'opposite':
-                    #     for oppositeParticipant in oppositeParticipants:
-                    #         # yz: Mirror mode, xz: Natural mode
-                    #         localRotation[oppositeParticipant] = caBehaviour.InversedRotation(localRotation[oppositeParticipant], axes=inversedAxes)
-
-                    # # ----- Calculate shared transform ----- #
-                    # position,rotation = caBehaviour.GetSharedTransform(localPosition, localRotation)
-                    # position = position * 1000
-
-                    # # ----- Set xArm transform ----- #
-                    # transform.x, transform.y, transform.z           = position[2], position[0], position[1]
-                    # transform.roll, transform.pitch, transform.yaw  = rotation[2], rotation[0], rotation[1]
-
-
-                    # # ----- Safety check (Position) ---- #
-                    # diffX = transform.x - beforeX
-                    # diffY = transform.y - beforeY
-                    # diffZ = transform.z - beforeZ
-                    # beforeX, beforeY, beforeZ = transform.x, transform.y, transform.z
-
-
-                    # if diffX == 0 and  diffY == 0 and diffZ == 0 and  isFixedFrameRate:
-                    #     print('[WARNING] >> Rigid body is not captured by the mocap camera.')
-                    # elif abs(diffX) > movingDifferenceLimit or abs(diffY) > movingDifferenceLimit or abs(diffZ) > movingDifferenceLimit :
-                    #     isMoving = False
-                    #     print('[ERROR] >> A rapid movement has occurred. Please enter "r" to reset xArm, or "q" to quit')
-                    # else:
+                    #     # ----- Disconnect ----- #
                     #     if isEnablexArm:
-                    #         # ----- Send to xArm ----- #
-                    #         arm.set_servo_cartesian(transform.Transform(isLimit=False,isOnlyPosition=False))
-                            # arm_2.set_servo_cartesian(transform_2.Transform(isLimit=False,isOnlyPosition=False))
+                    #         arm.disconnect()
 
-                    # ----- Bending sensor ----- #
-                    # dictBendingValue = coreRobotManager.data['grip_val']
+                    #     windll.winmm.timeEndPeriod(1)
 
-                    # ----- Bending sensor for integration or one side ----- #
-                    # if self.bendinSensorNumber == '1':
-                    #     gripperValue_1 = dictBendingValue['gripperValue1']
-                    # elif self.bendinSensorNumber == '2':
-                    #     gripperValue_1 = (dictBendingValue['gripperValue1'] + dictBendingValue['gripperValue2'])/2
+                    #     print('----- Finish task -----')
+                    #     break
 
-                    # ----- Gripper control ----- #
-                    # if isEnablexArm:
-                    #     code, ret = arm.getset_tgpio_modbus_data(self.ConvertToModbusData(gripperValue_1))
+                    if isMoving:
+                        # ---------- Start control process timer ---------- #
+                        loopStartTime = time.perf_counter()
+                        # print(coreRobotManager.joined_dict['1'])
+                        print('hello')
 
-                    # ----- Data recording ----- #
-                    # relativePosition = CyberneticAvatarMotionBehaviour.GetRelativePosition_r(position=localPosition)
-                    # relativeRotation = CyberneticAvatarMotionBehaviour.GetRelativeRotation_r(rotation=localRotation)
-                    # dataRecordManager.Record(relativePosition, relativeRotation, dictBendingValue, time.perf_counter()-taskStartTime)
-                    # dataRecordManager.Record(localPosition, localRotation, dictBendingValue, time.perf_counter()-taskStartTime)
+                        # ----- Get transform data----- #
+                        # localPosition = coreRobotManager.data['position']
+                        # localRotation = coreRobotManager.data['rotation']
 
-                    # ----- If xArm error has occured ----- #
-                    if isEnablexArm and arm.has_err_warn:
-                        isMoving    = False
-                        self.errorCount += 1
-                        self.taskTime.append(time.perf_counter() - taskStartTime)
-                        print('[ERROR] >> xArm Error has occured. Please enter "r" to reset xArm, or "q" to quit')
+                        # # ----- For opposite condition ----- #
+                        # if directionOfParticipants == 'opposite':
+                        #     for oppositeParticipant in oppositeParticipants:
+                        #         # yz: Mirror mode, xz: Natural mode
+                        #         localRotation[oppositeParticipant] = caBehaviour.InversedRotation(localRotation[oppositeParticipant], axes=inversedAxes)
 
-                     # ---------- End control process timer ---------- #
-                    processDuration = time.perf_counter() - loopStartTime  # For loop timer
+                        # # ----- Calculate shared transform ----- #
+                        # position,rotation = caBehaviour.GetSharedTransform(localPosition, localRotation)
+                        # position = position * 1000
 
-                    # ----- Fixed frame rate ----- #
-                    if isFixedFrameRate:
-                        sleepTime = loopTime - processDuration
-                        if sleepTime < 0:
-                            pass
-                        else:
-                            time.sleep(sleepTime)
+                        # # ----- Set xArm transform ----- #
+                        # transform.x, transform.y, transform.z           = position[2], position[0], position[1]
+                        # transform.roll, transform.pitch, transform.yaw  = rotation[2], rotation[0], rotation[1]
 
-                    # ----- (Optional) Check frame rate ----- #
-                    if self.loopCount % 20 == 0 and isPrintFrameRate:
-                        if self.loopCount != 0:
-                            listFrameRate.append(1 / (time.perf_counter() - loopStartTime))
-                            print("Average FPS: ", sum(listFrameRate)/len(listFrameRate))
 
-                    # ----- (Optional) Check data ----- #
-                    # if isPrintData:
-                    #     print('xArm transform > ' + str(np.round(transform.Transform(), 1)) + '   Bending sensor > ' + str(dictBendingValue))
+                        # # ----- Safety check (Position) ---- #
+                        # diffX = transform.x - beforeX
+                        # diffY = transform.y - beforeY
+                        # diffZ = transform.z - beforeZ
+                        # beforeX, beforeY, beforeZ = transform.x, transform.y, transform.z
 
-                    self.loopCount += 1
 
-                else:
-                    keycode = input('Input > "q": quit, "r": Clean error and init arm, "s": start control \n')
-                    # ----- Quit program ----- #
-                    if keycode == 'q':
-                        if isEnablexArm:
-                            arm.disconnect()
-                        self.PrintProcessInfo()
+                        # if diffX == 0 and  diffY == 0 and diffZ == 0 and  isFixedFrameRate:
+                        #     print('[WARNING] >> Rigid body is not captured by the mocap camera.')
+                        # elif abs(diffX) > movingDifferenceLimit or abs(diffY) > movingDifferenceLimit or abs(diffZ) > movingDifferenceLimit :
+                        #     isMoving = False
+                        #     print('[ERROR] >> A rapid movement has occurred. Please enter "r" to reset xArm, or "q" to quit')
+                        # else:
+                        #     if isEnablexArm:
+                        #         # ----- Send to xArm ----- #
+                        #         arm.set_servo_cartesian(transform.Transform(isLimit=False,isOnlyPosition=False))
+                                # arm_2.set_servo_cartesian(transform_2.Transform(isLimit=False,isOnlyPosition=False))
 
-                        windll.winmm.timeEndPeriod(1)
-                        break
+                        # ----- Bending sensor ----- #
+                        # dictBendingValue = coreRobotManager.data['grip_val']
 
-                    # ----- Reset xArm and gripper ----- #
-                    elif keycode == 'r':
-                        if isEnablexArm:
-                            self.InitializeAll(arm, transform)
-                            # self.InitRobotArm(arm, transform)
-                            # self.InitGripper(arm)
+                        # ----- Bending sensor for integration or one side ----- #
+                        # if self.bendinSensorNumber == '1':
+                        #     gripperValue_1 = dictBendingValue['gripperValue1']
+                        # elif self.bendinSensorNumber == '2':
+                        #     gripperValue_1 = (dictBendingValue['gripperValue1'] + dictBendingValue['gripperValue2'])/2
 
-                    # ----- Start streaming ----- #
-                    elif keycode == 's':
-                        originalPos = {'participant1':[300, 0, 230]}
-                        caBehaviour.SetOriginPosition(coreRobotManager.data['position'])
-                        caBehaviour.SetInversedMatrix(coreRobotManager.data['rotation'])
-                        # caBehaviour.SetOriginPosition(coreRobotManager.data['position'])
-                        # caBehaviour.SetInversedMatrix(coreRobotManager.data['rotation'])
+                        # ----- Gripper control ----- #
+                        # if isEnablexArm:
+                        #     code, ret = arm.getset_tgpio_modbus_data(self.ConvertToModbusData(gripperValue_1))
 
-                        # # ----- weight slider list (For participantNum)  ----- #
-                        # weightSliderList = []
-                        # weightSliderList_0 = [1/participantNum for n in range(participantNum)]
-                        # weightSliderList = [weightSliderList_0,weightSliderList_0]
+                        # ----- Data recording ----- #
+                        # relativePosition = CyberneticAvatarMotionBehaviour.GetRelativePosition_r(position=localPosition)
+                        # relativeRotation = CyberneticAvatarMotionBehaviour.GetRelativeRotation_r(rotation=localRotation)
+                        # dataRecordManager.Record(relativePosition, relativeRotation, dictBendingValue, time.perf_counter()-taskStartTime)
+                        # dataRecordManager.Record(localPosition, localRotation, dictBendingValue, time.perf_counter()-taskStartTime)
 
-                        # ----- weight slider list ----- #
-                        # self.weightSliderListPos[0].remove('weightSliderListPos')
-                        # self.weightSliderListRot[0].remove('weightSliderListRot')
-                        # weightSliderListPosstr = self.weightSliderListPos[0]
-                        # weightSliderListRotstr = self.weightSliderListRot[0]
-                        # weightSliderListPosfloat = list(map(float,weightSliderListPosstr))
-                        # weightSliderListRotfloat = list(map(float,weightSliderListRotstr))
-                        # weightSliderList = [weightSliderListPosfloat, weightSliderListRotfloat]
+                        # ----- If xArm error has occured ----- #
+                        if isEnablexArm and arm.has_err_warn:
+                            isMoving    = False
+                            self.errorCount += 1
+                            self.taskTime.append(time.perf_counter() - taskStartTime)
+                            print('[ERROR] >> xArm Error has occured. Please enter "r" to reset xArm, or "q" to quit')
 
-                        # self.weightSliderList = [[0,1],[0,1]]
-                        # self.weightSliderList = [[0.5,0.5],[0.5,0.5]]
+                        # ---------- End control process timer ---------- #
+                        processDuration = time.perf_counter() - loopStartTime  # For loop timer
 
-                        # print(weightSliderList)
+                        # ----- Fixed frame rate ----- #
+                        if isFixedFrameRate:
+                            sleepTime = loopTime - processDuration
+                            if sleepTime < 0:
+                                pass
+                            else:
+                                time.sleep(sleepTime)
 
-                        position, rotation = caBehaviour.GetSharedTransform(coreRobotManager.data['position'], coreRobotManager.data['rotation'])
-                        beforeX, beforeY, beforeZ = position[2], position[0], position[1]
+                        # ----- (Optional) Check frame rate ----- #
+                        if self.loopCount % 20 == 0 and isPrintFrameRate:
+                            if self.loopCount != 0:
+                                listFrameRate.append(1 / (time.perf_counter() - loopStartTime))
+                                print("Average FPS: ", sum(listFrameRate)/len(listFrameRate))
 
-                        # participantMotionManager.SetInitialBendingValue()
+                        # ----- (Optional) Check data ----- #
+                        # if isPrintData:
+                        #     print('xArm transform > ' + str(np.round(transform.Transform(), 1)) + '   Bending sensor > ' + str(dictBendingValue))
 
-                        isMoving    = True
-                        taskStartTime = time.perf_counter()
+                        self.loopCount += 1
 
-        except KeyboardInterrupt:
-            print('\nKeyboardInterrupt >> Stop: RobotControlManager.SendDataToRobot()')
+                    else:
+                        keycode = input('Input > "q": quit, "r": Clean error and init arm, "s": start control \n')
+                        # ----- Quit program ----- #
+                        if keycode == 'q':
+                            if isEnablexArm:
+                                arm.disconnect()
+                            self.PrintProcessInfo()
 
-            self.taskTime.append(time.perf_counter() - taskStartTime)
-            self.PrintProcessInfo()
+                            windll.winmm.timeEndPeriod(1)
+                            break
 
-            # if isExportData:
-            #     dataRecordManager.ExportSelf(dirPath='C:/Users/kimih/Documents/Nishimura',participant=self.participantname,conditions=self.condition,number=self.number)
+                        # ----- Reset xArm and gripper ----- #
+                        elif keycode == 'r':
+                            if isEnablexArm:
+                                self.InitializeAll(arm, transform)
+                                # self.InitRobotArm(arm, transform)
+                                # self.InitGripper(arm)
 
-            # ----- Disconnect ----- #
-            if isEnablexArm:
-                arm.disconnect()
+                        # ----- Start streaming ----- #
+                        elif keycode == 's':
+                            originalPos = {'participant1':[300, 0, 230]}
+                            # caBehaviour.SetOriginPosition(coreRobotManager.data['position'])
+                            # caBehaviour.SetInversedMatrix(coreRobotManager.data['rotation'])
 
-            windll.winmm.timeEndPeriod(1)
+                            # # ----- weight slider list (For participantNum)  ----- #
+                            # weightSliderList = []
+                            # weightSliderList_0 = [1/participantNum for n in range(participantNum)]
+                            # weightSliderList = [weightSliderList_0,weightSliderList_0]
 
-        except :
-            print('----- Exception has occurred -----')
-            windll.winmm.timeEndPeriod(1)
-            import traceback
-            traceback.print_exc()
+                            # ----- weight slider list ----- #
+                            # self.weightSliderListPos[0].remove('weightSliderListPos')
+                            # self.weightSliderListRot[0].remove('weightSliderListRot')
+                            # weightSliderListPosstr = self.weightSliderListPos[0]
+                            # weightSliderListRotstr = self.weightSliderListRot[0]
+                            # weightSliderListPosfloat = list(map(float,weightSliderListPosstr))
+                            # weightSliderListRotfloat = list(map(float,weightSliderListRotstr))
+                            # weightSliderList = [weightSliderListPosfloat, weightSliderListRotfloat]
+
+                            # self.weightSliderList = [[0,1],[0,1]]
+                            # self.weightSliderList = [[0.5,0.5],[0.5,0.5]]
+
+                            # print(weightSliderList)
+
+                            # position, rotation = caBehaviour.GetSharedTransform(coreRobotManager.data['position'], coreRobotManager.data['rotation'])
+                            # beforeX, beforeY, beforeZ = position[2], position[0], position[1]
+
+                            # participantMotionManager.SetInitialBendingValue()
+
+                            isMoving    = True
+                            taskStartTime = time.perf_counter()
+
+            except KeyboardInterrupt:
+                print('\nKeyboardInterrupt >> Stop: RobotControlManager.SendDataToRobot()')
+
+                self.taskTime.append(time.perf_counter() - taskStartTime)
+                self.PrintProcessInfo()
+
+                # if isExportData:
+                #     dataRecordManager.ExportSelf(dirPath='C:/Users/kimih/Documents/Nishimura',participant=self.participantname,conditions=self.condition,number=self.number)
+
+                # ----- Disconnect ----- #
+                if isEnablexArm:
+                    arm.disconnect()
+
+                windll.winmm.timeEndPeriod(1)
+
+            except :
+                print('----- Exception has occurred -----')
+                windll.winmm.timeEndPeriod(1)
+                import traceback
+                traceback.print_exc()
 
     def InitRobotArm(self, robotArm, transform, isSetInitPosition = True):
         """

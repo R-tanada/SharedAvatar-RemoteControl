@@ -1,19 +1,19 @@
 import json
 import sys
 import threading
-# from logs import logger
+
+from logs import logger
 
 sys.path.append('../')
 from sdk.AvatarCore.bin.CorePython.CoreAPI import CoreAPI
-from sdk.AvatarCore.bin.CorePython.CoreResourceManager import CoreResourceManager
+from sdk.AvatarCore.bin.CorePython.CoreResourceManager import \
+    CoreResourceManager
 from sdk.AvatarCore.bin.CorePython.CoreSession import CoreSession
 
 
 class CoreRobotManager:
-    def __init__(self, Avatar_Peer_ID, connect_PC_Num, participantNum):
+    def __init__(self, Avatar_Peer_ID):
         self.avatarPeerID = Avatar_Peer_ID
-        self.coonnectPCNum = connect_PC_Num
-        self.participantNum = participantNum
 
         self.core_resources = None
         self.core_start = False
@@ -32,14 +32,12 @@ class CoreRobotManager:
                                master=True,
                                port=0,
                                app_name='RobotClient')
-        # logger.info('Start the core_api')
-        print('Start the core_api')
+        logger.info('Start the core_api')
 
-        self.core_api.load_services('core_services/pancake_core_robot_cloud_services.json')
-        self.core_api.load_services('core_services/pancake_core_robot_services.json')
+        self.core_api.load_services('core_services/core_robot_cloud_services.json')
+        self.core_api.load_services('core_services/core_robot_services.json')
         self.core_api.start_default_services()
-        # logger.info('Start the default services')
-        print('Start the default services')
+        logger.info('Start the default services')
 
         self.core_api.subscribe_to_message('avatarin', 'cloud/status', self.__cloud_status)
         self.core_api.subscribe_to_message('avatarin', 'cloud/peer/joined', self.__peer_joined)
@@ -48,37 +46,25 @@ class CoreRobotManager:
         self.core_session.init_session('Robot/cloud')
         self.core_session.set_peer_id(self.avatarPeerID)
         self.core_api.start_service('Robot/.*')
-        # logger.info('Start the services')
-        print('Start the services')
+        logger.info('Start the services')
 
         self.__create_resource()
 
-        self.core_start = True
-
     def __cloud_status(self, name, path, data):
-        # logger.info('Cloud status: {0}'.format(data))
-        print('Cloud status: {0}'.format(data))
+        logger.info('Cloud status: {0}'.format(data))
 
     def __peer_joined(self, name, path, data):
-        if self.coonnectPCNum >= 2:
-            # logger.debug('id:%s'%data)
-            print('id:%s'%data)
-            if data not in self.joined_dict.values():
-                ID = self.__id_mapping(data)
-                self.core_write_data('feedback-to-user',
-                                    'id',
-                                    {'PeerID':data, 'UserID':ID})
-                self.__subscribe_resource(ID)
+        logger.debug('id:%s'%data)
+        if data not in self.joined_dict.values():
+            ID = self.__id_mapping(data)
+            self.core_write_data('feedback-to-user',
+                                'id',
+                                {'PeerID':data, 'UserID':ID})
+            self.__subscribe_resource(ID)
 
-            # logger.info('Joined remote peerID: %s'%data)
-            # logger.info('Joined userID: %s'%ID)
-            print('Joined remote peerID: %s'%data)
-            print('Joined userID: %s'%ID)
-
-        else:
-            self.__subscribe_resource()
-            # logger.info('Joined remote peerID: %s'%data)
-            print('Joined remote peerID: %s'%data)
+        logger.info('Joined remote peerID: %s'%data)
+        logger.info('Joined userID: %s'%ID)
+        self.core_start = True
 
     def __id_mapping(self, data):
         dict_keys = list(self.joined_dict.keys())
@@ -104,8 +90,7 @@ class CoreRobotManager:
         else:
             ID = 1
             self.joined_dict[str(ID)] = [data, None, None]
-        # logger.debug('mapping:%s'%self.joined_dict)
-        print('mapping:%s'%self.joined_dict)
+        logger.debug('mapping:%s'%self.joined_dict)
 
         return ID
 
@@ -118,52 +103,49 @@ class CoreRobotManager:
                 self.joined_dict.pop(key)
                 break
 
-        # logger.info('Disconnected peerID: %s'%data)
-        # logger.info('Disconnected userID: %s'%ID)
-        print('Disconnected peerID: %s'%data)
-        print('Disconnected userID: %s'%ID)
+        logger.info('Disconnected peerID: %s'%data)
+        logger.info('Disconnected userID: %s'%ID)
 
     def __create_resource(self):
         self.core_resources = CoreResourceManager(self.__on_resource_frame_arrived)
         self.core_resources.start(1)
 
-        # logger.info('Start the core_resources')
-        print('Start the core_resources')
+        logger.info('Start the core_resources')
 
     def __subscribe_resource(self, ID):
         self.core_resources.subscribe_data('user-%s-data'%ID,
-                                    'motion-data')
+                                           'motion-data')
 
     def __on_resource_frame_arrived(self, type, resource, channel, frame):
         if type == 'data':
             self.__on_data_frame_arrived(resource, channel, frame)
 
     def __on_data_frame_arrived(self, resource, channel, frame):
-        self.data = json.loads(frame)
+        data = json.loads(frame)
 
         for i in self.joined_dict.keys():
             if resource == 'user-%s-data'%i:
                 if channel == 'motion-data':
-                    self.data['user'] = i
-                    self.core_write_data('feedback-to-user', 'motion-data', self.data)
+                    self.core_mutex.acquire()
+
+                    self.joined_dict[i] = data
+                    logger.info('receive data : %s - %s - %s'%(resource, channel, frame))
+
+                    self.core_mutex.release()
 
     def core_write_data(self, resource, channel, message):
         message = json.dumps(message)
         self.core_resources.write_data(resource, channel, message)
-        # logger.info('send data : %s - %s - %s'%(resource, channel, message))
-        print('send data : %s - %s - %s'%(resource, channel, message))
+        logger.info('send data : %s - %s - %s'%(resource, channel, message))
 
     def stop_core(self):
         self.core_session.disconnect_from_peer(self.avatarPeerID)
         self.core_session.clear_session_callbacks()
-        # logger.info('Stop the core_session')
-        print('Stop the core_session')
+        logger.info('Stop the core_session')
 
         self.core_resources.destroy()
         self.core_resources = None
-        # logger.info('Stop the core_resources')
-        print('Stop the core_resources')
+        logger.info('Stop the core_resources')
 
         self.core_finished = self.core_api.destroy_api()
-        # logger.info('Stop the core_api')
-        print('Stop the core_api')
+        logger.info('Stop the core_api')
