@@ -122,9 +122,9 @@ class RobotControlManagerClass:
         isPrintFrameRate    = False     # For debug
         isPrintData         = False     # For debug
 
-        if coreRobotManager.core_start:
-            try:
-                while True:
+        try:
+            while True:
+                if coreRobotManager.core_start:
                     # if time.perf_counter() - taskStartTime > executionTime:
                     #     # ----- Exit processing after task time elapses ----- #
                     #     isMoving    = False
@@ -148,8 +148,8 @@ class RobotControlManagerClass:
                     if isMoving:
                         # ---------- Start control process timer ---------- #
                         loopStartTime = time.perf_counter()
-                        # print(coreRobotManager.joined_dict['1'])
-                        print('hello')
+                        print(coreRobotManager.joined_dict['1'])
+                        # print('hello')
 
                         # ----- Get transform data----- #
                         # localPosition = coreRobotManager.data['position']
@@ -288,26 +288,29 @@ class RobotControlManagerClass:
                             isMoving    = True
                             taskStartTime = time.perf_counter()
 
-            except KeyboardInterrupt:
-                print('\nKeyboardInterrupt >> Stop: RobotControlManager.SendDataToRobot()')
+                else:
+                    pass
 
-                self.taskTime.append(time.perf_counter() - taskStartTime)
-                self.PrintProcessInfo()
+        except KeyboardInterrupt:
+            print('\nKeyboardInterrupt >> Stop: RobotControlManager.SendDataToRobot()')
 
-                # if isExportData:
-                #     dataRecordManager.ExportSelf(dirPath='C:/Users/kimih/Documents/Nishimura',participant=self.participantname,conditions=self.condition,number=self.number)
+            self.taskTime.append(time.perf_counter() - taskStartTime)
+            self.PrintProcessInfo()
 
-                # ----- Disconnect ----- #
-                if isEnablexArm:
-                    arm.disconnect()
+            # if isExportData:
+            #     dataRecordManager.ExportSelf(dirPath='C:/Users/kimih/Documents/Nishimura',participant=self.participantname,conditions=self.condition,number=self.number)
 
-                windll.winmm.timeEndPeriod(1)
+            # ----- Disconnect ----- #
+            if isEnablexArm:
+                arm.disconnect()
 
-            except :
-                print('----- Exception has occurred -----')
-                windll.winmm.timeEndPeriod(1)
-                import traceback
-                traceback.print_exc()
+            windll.winmm.timeEndPeriod(1)
+
+        except :
+            print('----- Exception has occurred -----')
+            windll.winmm.timeEndPeriod(1)
+            import traceback
+            traceback.print_exc()
 
     def InitRobotArm(self, robotArm, transform, isSetInitPosition = True):
         """
