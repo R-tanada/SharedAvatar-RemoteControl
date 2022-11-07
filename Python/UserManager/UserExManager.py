@@ -32,7 +32,7 @@ def send_MotionData():
 
                 # ---------- test ---------- #
                 position, rotation = testManager.create_Sinwave(loopTime)
-                message = {'position':position['participant1'], 'rotation':rotation['participant1']}
+                message = 1111
                 coreManager.core_write_data('motion-data', message)
 
                 # print('Position, Rotaton => {}, {}'.format(position, rotation))

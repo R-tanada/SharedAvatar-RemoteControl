@@ -93,16 +93,12 @@ class CoreUserManager:
     def __on_data_frame_arrived(self, resource, channel, frame):
         # logger.debug('receive data : %s - %s - %s'%(resource, channel, frame))
         print('receive data : %s - %s - %s'%(resource, channel, frame))
-        print('11111111111111111111')
 
         data = json.loads(frame)
 
         if channel == 'id':
-            print(22222222222)
             if self.user_ID is None:
-                print(33333333333333)
                 if self.UserPeerID == data['PeerID']:
-                    print(4444444444444)
                     self.user_ID = data['UserID']
                     self.core_start = True
 

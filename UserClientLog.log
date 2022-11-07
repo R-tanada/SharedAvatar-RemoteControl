@@ -1,86 +1,98 @@
-20:41:31 [0][Info] 	- AvatarFlow >> Avatar Core Version: 1.13.1
-20:41:31 [0][Info] 	- AvatarFlow >> Build Date Time: Jun  9 2022  18:24:32
-20:41:31 [1][Alert] 	- AvatarFlowManager >> Init(../)
-20:41:31 [1][Info] 	- AvatarFlow >> OS: MacOS Version: Darwin - 21.6.0 - Darwin Kernel Version 21.6.0: Mon Aug 22 20:20:05 PDT 2022; root:xnu-8020.140.49~2/RELEASE_ARM64_T8101
-20:41:31 [1][Error] 	- JSONUtils >> Failed to parse json string: [] with exception: [json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - unexpected end of input; expected '[', '{', or a literal
-20:41:31 [1][Info] 	- ServiceCoordinator >> CreateCoordinator()
-20:41:31 [1][Info] 	- ServiceCoordinator >> Create() - Created at port: 40933
-20:41:31 [1][Notice] 	- SharedMemory >> SharedMemoryManager::CreateSharedMemory - avatarcore_services
-20:41:31 [1][Info] 	- ServiceCoordinator >>  Openning port: 40933
-20:41:32 [1][Info] 	- AvatarFlow >> AvatarFlow Initialized successfully
-20:41:32 [0][Info] 	- AvatarFlowManager >> ARTC SDK Version: 2.1.3
-20:41:32 [1][Info] 	- AvatarFlowManager >> Inited
-20:41:32 [1][Warning] 	- Python >> Python::CoreAPIWrapper::SubscribeToMessage [Application: service/status/reply] Already subscribed!
-20:41:32 [1][Notice] 	- Services >> ServiceManager::LoadServices() - Service name [CloudProxy] was loaded as alias [User/cloud]
-20:41:32 [1][Notice] 	- Services >> ServiceManager::LoadServices() - Service name [RTPSender] was loaded as alias [User/sender/data/user/user]
-20:41:32 [1][Notice] 	- Services >> ServiceManager::LoadServices() - Service name [RTPReceiver] was loaded as alias [User/receiver/data/feedback/user]
-20:41:32 [1][Notice] 	- Services >> ServiceManager::LoadServices() - Service name [RTPReceiver] was loaded as alias [User/receiver/video/micro]
-20:41:32 [1][Notice] 	- Services >> ServiceManager::LoadServices() - Service name [VideoFormat] was loaded as alias [User/video/robot/micro/RGB]
-20:41:32 [0][Notice] 	- Services >> Starting Service [VideoFormatService]: User/video/robot/micro/RGB
-20:41:32 [1][Notice] 	- SharedMemory >> SharedMemoryManager::CreateSharedMemory - robot-camera-RGB
-20:41:32 [1][Notice] 	- GstPipelineHandler >> [User/video/robot/micro/RGB]::Play()
-20:41:32 [0][Notice] 	- Services >> Starting Service [CloudProxyService]: User/cloud
-20:41:32 [1][Warning] 	- Python >> Python::CoreAPIWrapper::SubscribeToMessage [avatarin: cloud/status] Already subscribed!
-20:41:32 [1][Debug] 	- Services >> CloudProxyService::SendHello() - Adding a request for hello: 214387
-20:41:32 [1][Info] 	- AvatarFlowManager >> RequestStartService(User/.*)
-20:41:32 [1][Info] 	- Services >> Setting resource fetch rate ms: 1
-20:41:32 [0][Notice] 	- Services >> Starting Service [RTPReceiver]: User/receiver/data/feedback/user
-20:41:32 [1][Info] 	- SharedMemory >> SharedMemoryDataWriter::Open(feedback-to-user, remote) - Starting
-20:41:32 [1][Notice] 	- SharedMemory >> SharedMemoryManager::CreateSharedMemory - feedback-to-user
-20:41:33 [1][Notice] 	- RTP >> Linked with ports: Data
+20:52:58 [0][Info] 	- AvatarFlow >> Avatar Core Version: 1.13.1
+20:52:58 [0][Info] 	- AvatarFlow >> Build Date Time: Jun  9 2022  18:24:32
+20:52:58 [1][Alert] 	- AvatarFlowManager >> Init(../)
+20:52:58 [1][Info] 	- AvatarFlow >> OS: MacOS Version: Darwin - 21.6.0 - Darwin Kernel Version 21.6.0: Mon Aug 22 20:20:05 PDT 2022; root:xnu-8020.140.49~2/RELEASE_ARM64_T8101
+20:52:58 [1][Error] 	- JSONUtils >> Failed to parse json string: [] with exception: [json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - unexpected end of input; expected '[', '{', or a literal
+20:52:58 [1][Info] 	- ServiceCoordinator >> CreateCoordinator()
+20:52:58 [1][Info] 	- ServiceCoordinator >> Create() - Created at port: 40933
+20:52:58 [1][Notice] 	- SharedMemory >> SharedMemoryManager::CreateSharedMemory - avatarcore_services
+20:52:58 [1][Info] 	- ServiceCoordinator >>  Openning port: 40933
+20:53:0 [1][Info] 	- AvatarFlow >> AvatarFlow Initialized successfully
+20:53:0 [0][Info] 	- AvatarFlowManager >> ARTC SDK Version: 2.1.3
+20:53:0 [1][Info] 	- AvatarFlowManager >> Inited
+20:53:0 [1][Warning] 	- Python >> Python::CoreAPIWrapper::SubscribeToMessage [Application: service/status/reply] Already subscribed!
+20:53:0 [1][Notice] 	- Services >> ServiceManager::LoadServices() - Service name [CloudProxy] was loaded as alias [User/cloud]
+20:53:0 [1][Notice] 	- Services >> ServiceManager::LoadServices() - Service name [RTPSender] was loaded as alias [User/sender/data/user/user]
+20:53:0 [1][Notice] 	- Services >> ServiceManager::LoadServices() - Service name [RTPReceiver] was loaded as alias [User/receiver/data/feedback/user]
+20:53:0 [1][Notice] 	- Services >> ServiceManager::LoadServices() - Service name [RTPReceiver] was loaded as alias [User/receiver/video/micro]
+20:53:0 [1][Notice] 	- Services >> ServiceManager::LoadServices() - Service name [VideoFormat] was loaded as alias [User/video/robot/micro/RGB]
+20:53:0 [0][Notice] 	- Services >> Starting Service [VideoFormatService]: User/video/robot/micro/RGB
+20:53:0 [1][Notice] 	- SharedMemory >> SharedMemoryManager::CreateSharedMemory - robot-camera-RGB
+20:53:0 [1][Notice] 	- GstPipelineHandler >> [User/video/robot/micro/RGB]::Play()
+20:53:0 [0][Notice] 	- Services >> Starting Service [CloudProxyService]: User/cloud
+20:53:0 [1][Warning] 	- Python >> Python::CoreAPIWrapper::SubscribeToMessage [avatarin: cloud/status] Already subscribed!
+20:53:0 [1][Debug] 	- Services >> CloudProxyService::SendHello() - Adding a request for hello: 214387
+20:53:0 [1][Info] 	- AvatarFlowManager >> RequestStartService(User/.*)
+20:53:0 [1][Info] 	- Services >> Setting resource fetch rate ms: 1
+20:53:0 [1][Debug] 	- Services >> CloudProxyService - Processing hello request: 214387
+20:53:0 [0][Notice] 	- Services >> Starting Service [RTPReceiver]: User/receiver/data/feedback/user
+20:53:0 [1][Info] 	- SharedMemory >> SharedMemoryDataWriter::Open(feedback-to-user, remote) - Starting
+20:53:0 [1][Notice] 	- SharedMemory >> SharedMemoryManager::CreateSharedMemory - feedback-to-user
+20:53:0 [1][Notice] 	- RTP >> Linked with ports: Data
 	RTP: 10601
 	RTCP Send: 9000
 	RTCP Recv: 9010
-20:41:33 [1][Notice] 	- GstPipelineHandler >> [User/receiver/data/feedback/user]::Play()
-20:41:33 [0][Notice] 	- Services >> Starting Service [RTPReceiver]: User/receiver/video/micro
-20:41:33 [1][Notice] 	- SharedMemory >> SharedMemoryManager::CreateSharedMemory - robot-camera
-20:41:33 [1][Debug] 	- Services >> CloudProxyService - Processing hello request: 214387
-20:41:33 [1][Notice] 	- RTP >> Linked with ports: RobotCamera
+20:53:0 [1][Notice] 	- GstPipelineHandler >> [User/receiver/data/feedback/user]::Play()
+20:53:0 [0][Notice] 	- Services >> Starting Service [RTPReceiver]: User/receiver/video/micro
+20:53:0 [1][Notice] 	- SharedMemory >> SharedMemoryManager::CreateSharedMemory - robot-camera
+20:53:0 [1][Notice] 	- RTP >> Linked with ports: RobotCamera
 	RTP: 10701
 	RTCP Send: 9000
 	RTCP Recv: 9010
-20:41:33 [1][Notice] 	- GstPipelineHandler >> [User/receiver/video/micro]::Play()
-20:41:33 [0][Notice] 	- Services >> Starting Service [RTPSender]: User/sender/data/user/user
-20:41:33 [1][Notice] 	- RTP >> Linked with ports: Data
+20:53:0 [1][Notice] 	- GstPipelineHandler >> [User/receiver/video/micro]::Play()
+20:53:0 [0][Notice] 	- Services >> Starting Service [RTPSender]: User/sender/data/user/user
+20:53:0 [1][Notice] 	- RTP >> Linked with ports: Data
 	RTP: 10501
 	RTCP Send: 9000
 	RTCP Recv: 9010
-20:41:33 [1][Notice] 	- GstPipelineHandler >> [User/sender/data/user/user]::Play()
-20:41:33 [1][Debug] 	- Services >> CloudProxyServiceImpl::LaunchServices()  - ARTC Context started 
-20:41:33 [1][Debug] 	- Services >> CloudProxyService::SendHello() - StreamSDK_Hello: 214387
-20:41:34 [0][Debug] 	- Services >> CloudProxyService::SendHello() - Successfully started.
-20:41:35 [0][Notice] 	- Services >> CloudProxyService - Received Session Message[aaa8a150-4c99-42c3-8225-d30a2fe5f3be] from peer: 199580
-20:41:35 [1][Notice] 	- Services >> CloudProxyService - Joining Subscribers
-20:41:35 [1][Debug] 	- Services >> CloudProxyService::JoinSessionSubscriber() - Trying to join session: aaa8a150-4c99-42c3-8225-d30a2fe5f3be
-20:41:35 [1][Debug] 	- Services >> CloudProxyService::JoinSessionSubscriber() - Adding stream: 199580:130) port: 10601
-20:41:35 [1][Debug] 	- Services >> CloudProxyService::JoinSessionSubscriber() - Adding stream: 199580:210) port: 10701
-20:41:35 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:41:36 [1][Debug] 	- Services >> CloudProxyService::JoinSessionSubscriber() - Successfully joined session.
-20:41:36 [1][Notice] 	- Services >> CloudProxyService - Joining Publishers
-20:41:36 [1][Info] 	- Services >> CloudProxyService::JoinSessionPublisher() - Trying to join session: aaa8a150-4c99-42c3-8225-d30a2fe5f3be
-20:41:36 [1][Info] 	- Services >> CloudProxyService::JoinSessionPublisher() - Adding stream: 110) port: 10501/ Reliable: No
-20:41:37 [0][Notice] 	- Services >> CloudProxyService - Sending inside message to peer: 199580
-20:41:38 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:41:41 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:41:44 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:41:48 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:41:51 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:41:54 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:41:57 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:0 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:3 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:6 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:9 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:12 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:15 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:18 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:21 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:24 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:27 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:30 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:33 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:36 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:39 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:42 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:44 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
-20:42:47 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:0 [1][Notice] 	- GstPipelineHandler >> [User/sender/data/user/user]::Play()
+20:53:0 [1][Debug] 	- Services >> CloudProxyServiceImpl::LaunchServices()  - ARTC Context started 
+20:53:0 [1][Debug] 	- Services >> CloudProxyService::SendHello() - StreamSDK_Hello: 214387
+20:53:1 [0][Debug] 	- Services >> CloudProxyService::SendHello() - Successfully started.
+20:53:3 [0][Notice] 	- Services >> CloudProxyService - Received Session Message[d22334ef-cdf0-42bf-b16e-8053271e7011] from peer: 199580
+20:53:3 [1][Notice] 	- Services >> CloudProxyService - Joining Subscribers
+20:53:3 [1][Debug] 	- Services >> CloudProxyService::JoinSessionSubscriber() - Trying to join session: d22334ef-cdf0-42bf-b16e-8053271e7011
+20:53:3 [1][Debug] 	- Services >> CloudProxyService::JoinSessionSubscriber() - Adding stream: 199580:130) port: 10601
+20:53:3 [1][Debug] 	- Services >> CloudProxyService::JoinSessionSubscriber() - Adding stream: 199580:210) port: 10701
+20:53:3 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:4 [1][Debug] 	- Services >> CloudProxyService::JoinSessionSubscriber() - Successfully joined session.
+20:53:4 [1][Notice] 	- Services >> CloudProxyService - Joining Publishers
+20:53:4 [1][Info] 	- Services >> CloudProxyService::JoinSessionPublisher() - Trying to join session: d22334ef-cdf0-42bf-b16e-8053271e7011
+20:53:4 [1][Info] 	- Services >> CloudProxyService::JoinSessionPublisher() - Adding stream: 110) port: 10501/ Reliable: No
+20:53:5 [0][Notice] 	- Services >> CloudProxyService - Sending inside message to peer: 199580
+20:53:6 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:6 [1][Info] 	- SharedMemory >> SharedMemoryDataWriter::Open(user-1-data, local) - Starting
+20:53:6 [1][Notice] 	- SharedMemory >> SharedMemoryManager::CreateSharedMemory - user-1-data
+20:53:9 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:12 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:15 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:18 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:21 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:24 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:27 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:30 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:34 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:37 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:40 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:43 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:46 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:49 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:52 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:55 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:53:58 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:0 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:3 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:6 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:9 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:12 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:15 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:18 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:21 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:24 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:27 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:30 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:32 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:35 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:38 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:41 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!
+20:54:44 [1][Warning] 	- VideoAppSrcHandler >> [robot-camera]::Grabbing frame-Skipped 500 times!

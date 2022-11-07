@@ -12,7 +12,7 @@
     {
       "Type": "RTPSender",
       "Settings": {
-        "Alias": "User/sender/data/user/user",
+        "Alias": "User/sender/data/user/user1",
         "DefaultRunning": "false",
         "PeerIP": "127.0.0.1",
         "Data": [
@@ -23,7 +23,7 @@
             "RTPPort": "10501",
             "Source": {
               "Type": "shmem",
-              "Resource": "user-data"
+              "Resource": "user-1-data"
             }
           }
         ]

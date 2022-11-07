@@ -23,7 +23,7 @@
             "RTPPort": "10501",
             "Sink": {
               "Type": "shmem",
-              "Resource": "user-data",
+              "Resource": "user-1-data",
               "Size": "4096"
             }
           }

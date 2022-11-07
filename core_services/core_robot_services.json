@@ -4,7 +4,7 @@
         {
             "Type": "VideoCapture",
             "Settings": {
-                "Alias": "Capture/video/micro",
+                "Alias": "Capture/video/robot",
                 "DefaultRunning": "true",
                 "Source": {
                     "Type": "camera",
@@ -15,7 +15,7 @@
                 },
                 "Sink": {
                     "Type": "shmem",
-                    "Resource": "micro-camera",
+                    "Resource": "robot-camera",
                     "Size": "6220800"
                 }
             }
