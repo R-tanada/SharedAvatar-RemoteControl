@@ -103,7 +103,7 @@ class RobotControlManagerClass:
         # ----- Instantiating custom classes ----- #
         caBehaviour                         = CyberneticAvatarMotionBehaviour(defaultParticipantNum=participantNum)
         transform                           = xArmTransform()
-        coreRobotManager                    = CoreRobotManager(Avatar_Peer_ID = 199580)
+        coreRobotManager                    = CoreRobotManager(Avatar_Peer_ID = '199580')
         # dataRecordManager                   = DataRecordManager(participantNum=participantNum, otherRigidBodyNum=otherRigidBodyCount)
         # weightSliderManager                 = WeightSliderManager(WeightSlider_ConnectionMethod='wireless',ip=self.wirelessIpAddress,port=self.weightSliderPort)
         # Graph2DManager                      = Graph_2D(n=2)

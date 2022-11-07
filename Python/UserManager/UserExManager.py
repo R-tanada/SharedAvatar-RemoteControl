@@ -13,7 +13,7 @@ from ParticipantMotion.TestMotionManager import TestManager
 # setting_file = open('../../setting.json', mode = 'r')
 # setValue = json.load(setting_file)
 
-coreManager = CoreUserManager(User_Peer_ID = 214387, Avatar_Peer_ID = 199580)
+coreManager = CoreUserManager(User_Peer_ID = '214387', Avatar_Peer_ID = '199580')
 
 def send_MotionData():
     taskStartTime = time.perf_counter()
@@ -23,7 +23,7 @@ def send_MotionData():
 
     try:
         while True:
-            if CoreUserManager.core_start:
+            if coreManager.core_start:
                 loopStartTime = time.perf_counter() - taskStartTime
 
                 # ---------- transform ---------- #
