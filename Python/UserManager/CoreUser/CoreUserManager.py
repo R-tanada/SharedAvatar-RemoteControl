@@ -89,6 +89,7 @@ class CoreUserManager:
 
         elif type == 'video':
             self.__on_video_frame_arrived(resource, frame)
+            print(111111111111)
 
     def __on_data_frame_arrived(self, resource, channel, frame):
         # logger.debug('receive data : %s - %s - %s'%(resource, channel, frame))
@@ -126,7 +127,7 @@ class CoreUserManager:
         core_resources.write_data(resource, channel, message)
 
         # logger.debug('send data : %s - %s - %s'%(resource, channel, message))
-        print('send data : %s - %s - %s'%(resource, channel, message))
+        # print('send data : %s - %s - %s'%(resource, channel, message))
 
     def stop_core(self):
         global core_resources

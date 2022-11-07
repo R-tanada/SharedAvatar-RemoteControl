@@ -76,7 +76,7 @@
     {
       "Type": "VideoFormat",
       "Settings": {
-        "Alias": "User/video/robot/robot/RGB",
+        "Alias": "User/video/robot/RGB",
         "DefaultRunning": "true",
         "Source": {
           "Type": "shmem",
