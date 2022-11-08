@@ -34,7 +34,7 @@ class MainWin(QtWidgets.QMainWindow):
         self.resize(self.win_width, (self.win_width * self.win_ratio['height']) / self.win_ratio['width'])
         self.first_frame_geometry = self.geometry()
 
-        self.loading_fig = QtGui.QPixmap("/Users/yuzu/Documents/GitHub/ms-sharedavatar/Python/UserManager/Camera/Image/loading.png")
+        self.loading_fig = QtGui.QPixmap("../Python/UserManager/Camera/Image/loading.png")
         self.robotVeiw_geometry = {'x':0, 'y':0, 'size':1}
         self.robotVeiw_video = self.__set_video_widget('RobotView', self.robotVeiw_geometry)
 
