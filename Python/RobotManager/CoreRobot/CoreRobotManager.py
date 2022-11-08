@@ -130,6 +130,8 @@ class CoreRobotManager:
 
                     self.joined_dict[i] = data
                     logger.info('receive data : %s - %s - %s'%(resource, channel, frame))
+                    # data['user'] = i
+                    self.core_write_data('feedback-to-user', 'motion-data', data)
 
                     self.core_mutex.release()
 
