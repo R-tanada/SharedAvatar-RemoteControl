@@ -13,6 +13,6 @@
     "localIP": "127.0.0.1",
     "mocapserverAddress":"192.168.1.30",
     "mocaplocalAddress":"192.168.1.30",
-    "bendingsenosrNum":2
+    "bendingsenosrNum":0
 
 }

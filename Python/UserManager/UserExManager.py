@@ -6,14 +6,26 @@ import threading
 
 # from matplotlib import test
 
-# from ParticipantMotion.ParticipantMotionManager import ParticipantMotionManager
+from ParticipantMotion.ParticipantMotionManager import ParticipantMotionManager
 from CoreUser.CoreUserManager import CoreUserManager
 from ParticipantMotion.TestMotionManager import TestManager
 
-# setting_file = open('../../setting.json', mode = 'r')
-# setValue = json.load(setting_file)
+setting_file = open('../Python/setting.json', mode = 'r')
+setValue = json.load(setting_file)
 
 coreManager = CoreUserManager(User_Peer_ID = '214387', Avatar_Peer_ID = '199580')
+participantMotionManager = ParticipantMotionManager(defaultParticipantNum = setValue['participantNum'],
+                                                    recordedParticipantNum = setValue['recordedParticipantMotionCount'],
+                                                    motionInputSystem = setValue['motionDataInputMode'],
+                                                    mocapServer = setValue['motiveserverIpAddress'],
+                                                    mocapLocal = setValue['motivelocalIpAddress'],
+                                                    gripperInputSystem = setValue['gripperDataInputMode'], 
+                                                    bendingSensorNum = setValue['bendingsenosrNum'],
+                                                    recordedGripperValueNum = setValue['recordedGripperValueCount'],
+                                                    BendingSensor_ConnectionMethod = setValue['BendingSensor_ConnectionMethod'],
+                                                    # bendingSensorUdpIpAddress = setValue['bendingSensorSerialCOMs'],
+                                                    bendingSensorUdpPort = setValue['bendingSensorSerialRate'],
+                                                    bendingSensorSerialCOMs = setValue['bendingSensorSerialCOMs'])
 
 def send_MotionData():
     taskStartTime = time.perf_counter()
@@ -27,8 +39,8 @@ def send_MotionData():
                 loopStartTime = time.perf_counter() - taskStartTime
 
                 # ---------- transform ---------- #
-                # position = participantMotionManager.LocalPosition(loopCount)
-                # rotation = participantMotionManager.LocalRotation(loopCount)
+                position = participantMotionManager.LocalPosition(loopCount)
+                rotation = participantMotionManager.LocalRotation(loopCount)
 
                 # ---------- test ---------- #
                 position, rotation = testManager.create_Sinwave(loopTime)
