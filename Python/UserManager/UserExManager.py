@@ -15,6 +15,8 @@ from ParticipantMotion.TestMotionManager import TestManager
 
 coreManager = CoreUserManager(User_Peer_ID = '214387', Avatar_Peer_ID = '199580')
 
+# ---- test ---- #
+
 def send_MotionData():
     taskStartTime = time.perf_counter()
     loopTime = 0
